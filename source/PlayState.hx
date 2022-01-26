@@ -62,7 +62,7 @@ import sys.io.File;
 #end
 
 #if mobileC
-import ui.Mobilecontrols;
+import ui.hitbox;
 #end
 
 using StringTools;
@@ -273,7 +273,7 @@ class PlayState extends MusicBeatState
 	#end
 
 	#if mobileC
-	var mcontrols:Mobilecontrols; 
+	var _hitbox:Hitbox; 
 	#end	
 
 	private var luaArray:Array<FunkinLua> = [];
@@ -972,19 +972,19 @@ class PlayState extends MusicBeatState
 		doof.cameras = [camHUD];
 
 		#if mobileC
-			mcontrols = new Mobilecontrols();
-			controls.setHitBoxNOTES(mcontrols._hitbox);
+			_hitbox = new Hitbox();
+			controls.setHitBoxNOTES(_hitbox);
 			trackedinputsNOTES = controls.trackedinputsNOTES;
 			controls.trackedinputsNOTES = [];
 
 			var camcontrol = new FlxCamera();
 			FlxG.cameras.add(camcontrol);
 			camcontrol.bgColor.alpha = 0;
-			mcontrols.cameras = [camcontrol];
+			_hitbox.cameras = [camcontrol];
 
-			mcontrols.visible = false;
+			_hitbox.visible = false;
 
-			add(mcontrols);
+			add(_hitbox);
 		#end		
 
 		// if (SONG.song == 'South')
@@ -1324,7 +1324,7 @@ class PlayState extends MusicBeatState
 		var ret:Dynamic = callOnLuas('onStartCountdown', []);
 		if(ret != FunkinLua.Function_Stop) {
                         #if mobileC
-		        mcontrols.visible = true;
+		        _hitbox.visible = true;
 		        #end
 			generateStaticArrows(0);
 			generateStaticArrows(1);
@@ -3187,7 +3187,7 @@ class PlayState extends MusicBeatState
 			}
 		}
 		#if mobileC
-		mcontrols.visible = false;
+		_hitbox.visible = false;
 		#end
 		timeBarBG.visible = false;
 		timeBar.visible = false;
